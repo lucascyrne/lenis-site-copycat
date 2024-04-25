@@ -1,0 +1,356 @@
+@font-face {
+  font-family: 'Ye Old Shire';
+  src: url('fonts/YeOldShire.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gobold';
+  src: url('fonts/Gobold.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Couture';
+  src: url('fonts/Couture.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mortend';
+  src: url('fonts/Mortend.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Estilo universal do scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ff98a2 transparent;
+}
+
+/* Estilo para navegadores baseados em WebKit (Chrome, Safari) */
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #ff98a2;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+body,
+html {
+  width: 100vw;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--black);
+  color: var(--white); /* Cor dos textos para white */
+}
+
+/* Estilo adicional para assegurar que as partículas se movam com a rolagem */
+.particle {
+  position: absolute;
+  width: 1px; /* Tamanho um pouco maior para visibilidade */
+  height: 1px;
+  background-color: var(--primary-red);
+  will-change: transform;
+  border-radius: 50%; /* Torna as partículas circulares */
+}
+
+.particle.glowing::before {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: var(--primary-red);
+  border-radius: 50%;
+  top: -2px; /* Posicionamento para centralizar o brilho */
+  left: -2px;
+  filter: blur(2px); /* Efeito de brilho */
+  opacity: 0.7;
+}
+
+#scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 5px;
+  background-color: var(--primary-red);
+  z-index: 9999;
+}
+
+/* Contêiner de transição */
+.transition-background {
+  position: absolute;
+  z-index: 1;
+  width: 100vw;
+  min-width: 100vw;
+  height: 100vh;
+  background-color: var(--primary-red);
+}
+
+.first-section {
+  display: flex;
+  z-index: 2;
+  position: relative;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  overflow: hidden;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  padding: 1.28rem;
+  background-color: var(--primary-red);
+  color: var(--white);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-family: 'Gobold';
+  z-index: 3;
+  text-shadow: 1px 1px #000;
+}
+
+.close-button {
+  border: none;
+  background: none;
+  margin-right: 4rem;
+  color: #fff;
+  text-shadow: 1px 1px #000;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.letter,
+.letter-bottom {
+  font-size: var(--h1-font-size); /* Ajuste para o tamanho de fonte correto */
+  color: var(--black); /* Inicia com a cor preta */
+  opacity: 0; /* Torna as letras inicialmente invisíveis */
+  visibility: hidden; /* Torna as letras inicialmente invisíveis */
+  user-select: none;
+}
+
+.subtitle {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 0.32rem;
+  margin-top: 38vh;
+  margin-right: 3rem;
+  width: auto;
+  height: auto;
+}
+
+.subtitle > h3 {
+  position: relative;
+  right: 4px;
+}
+
+.first-section-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: auto;
+  margin-bottom: 0;
+  margin-right: 0.64rem;
+  width: 93%;
+  height: auto;
+  /* border: 1px solid pink; */
+}
+
+.first-section-bottom-left {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 6rem;
+  width: auto;
+  height: auto;
+}
+
+/* O problema da linha na direita está aqui: */
+.scroll-to-explore {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.28rem;
+  width: auto;
+  height: 85px;
+  overflow: visible;
+}
+
+.red-line {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: auto;
+  overflow: visible;
+  background-color: var(--primary-red);
+}
+
+.scroll-to-explore > h5 {
+  position: relative;
+  top: -1px;
+  margin-left: 1.28rem;
+}
+
+.first-section-button {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  padding: 2px;
+  width: auto;
+  height: auto;
+  background-color: var(--primary-red);
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color 0.5s;
+}
+
+.first-section-button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0%; /* Inicialmente não visível */
+  background-color: var(
+    --white
+  ); /* Cor que será a "nova" cor de fundo ao fazer hover */
+  z-index: -1; /* Fica atrás do conteúdo do botão */
+  transition: height 0.1s ease; /* Suaviza a transição da altura */
+}
+
+.github-img-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: var(--black);
+}
+
+.github-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background-color: var(--white);
+  border-radius: 50%;
+}
+
+.github-img > img {
+  position: relative;
+  top: -1px;
+  width: 114%;
+  height: auto;
+}
+
+.first-section-button > h6 {
+  padding-left: 1.28rem;
+  color: #000;
+}
+
+.arrow-img {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.64rem;
+  padding-right: 1.28rem;
+  top: -1px;
+  width: 8px;
+  height: 8px;
+  background-image: url('/public/images/diagonal-right-arrow.svg');
+  background-size: contain; /* Certifica que a imagem caiba dentro do elemento */
+  background-repeat: no-repeat; /* Evita a repetição da imagem */
+  background-position: center; /* Centraliza a imagem */
+}
+
+:root {
+  --primary-red: #ff98a2;
+  --black: #000;
+  --dark-gray: #333; /* Tom de cinza escuro de escolha */
+  --light-gray: #858585; /* Tom de cinza claro de escolha */
+  --white: #fff;
+
+  --h1-font-size: 18.42em;
+  --h2-font-size: 2.62em;
+  --h3-font-size: 0.68em;
+  --h4-font-size: 2.62em;
+  --h5-font-size: 0.92em;
+  --h6-font-size: 0.72em;
+  --p-font-size: 1.62em;
+}
+
+h1 {
+  font-size: var(--h1-font-size);
+  color: var(--primary-red);
+  font-family: 'Ye Old Shire';
+}
+
+h2 {
+  font-size: var(--h2-font-size);
+  color: var(--white);
+  font-family: 'Mortend';
+}
+
+h3 {
+  font-size: var(--h3-font-size);
+  color: var(--light-gray);
+  font-family: 'Couture';
+}
+
+h4 {
+  font-size: var(--h4-font-size);
+}
+
+h5 {
+  font-size: var(--h5-font-size);
+  font-family: 'Gobold';
+}
+
+h6 {
+  font-size: var(--h6-font-size);
+  font-family: 'Couture';
+}
+
+p {
+  font-size: var(--p-font-size);
+  color: var(--light-gray);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
