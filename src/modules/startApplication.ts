@@ -1,10 +1,10 @@
 import { enableScroll } from "../utils/enableScroll";
-import { renderFirstSectionElements } from "./setupFirstDiv";
+import { setupFirstSection } from "./setupFirstSection";
 import { lenis } from "./setupLenis";
 
 export function startApplication() {
   enableScroll();
-  renderFirstSectionElements();
+  setupFirstSection();
 
   setTimeout(() => {
     lenis.resize();

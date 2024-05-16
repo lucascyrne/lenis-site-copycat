@@ -3,10 +3,10 @@ import gsap from "gsap";
 // Cria partículas e as anima
 export function createParticles() {
   const maxOffset = window.innerHeight * 5;
-  for (let i = 0; i < 225; i++) {
+  for (let i = 0; i < 325; i++) {
     const particle = document.createElement("div");
     particle.classList.add("particle");
-    if (Math.random() < 0.3) {
+    if (Math.random() < 0.45) {
       // 30% das partículas terão um brilho
       particle.classList.add("glowing");
     }

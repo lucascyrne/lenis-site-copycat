@@ -5,24 +5,80 @@ export function positionLetters() {
   const letters = document.querySelectorAll(".letter");
   const bottomLetters = document.querySelectorAll(".letter-bottom");
 
-  // Assumindo que há 3 letras na linha de cima e 2 na de baixo
+  const isExtraLargeViewport = window.innerWidth >= 1920;
+  const isLargeViewport = window.innerWidth > 1200;
+  const isMediumViewport = window.innerWidth > 768 && window.innerWidth <= 1200;
+
   letters.forEach((letter, index) => {
-    gsap.set(letter, {
-      position: "absolute",
-      top: index < 3 ? "0%" : "50%", // Ajuste os valores conforme necessário
-      left: `${12 + index * 38.6}%`, // Espalha as letras horizontalmente
-      transform: "translate(-50%, -50%)",
-    });
+    if (isExtraLargeViewport) {
+      // Configuração para viewports extra grandes
+      gsap.set(letter, {
+        position: "absolute",
+        top: "30%",
+        left: `${12 + index * 37.5}%`,
+        transform: "translate(-50%, -50%)",
+      });
+    } else if (isLargeViewport) {
+      // Configuração para viewports grandes
+      gsap.set(letter, {
+        position: "absolute",
+        top: index < 3 ? "32%" : "52%",
+        left: `${13 + index * 37}%`,
+        transform: "translate(-50%, -50%)",
+      });
+    } else if (isMediumViewport) {
+      // Configuração para viewports médias (notebooks)
+      gsap.set(letter, {
+        position: "absolute",
+        top: "12.5%",
+        left: `${14 + index * 36}%`,
+        transform: "translate(-50%, -50%)",
+      });
+    } else {
+      // Configuração para viewports pequenas (mobiles)
+      gsap.set(letter, {
+        position: "absolute",
+        top: "32%",
+        left: `${12 + index * 40}%`,
+        transform: "translate(-50%, -50%)",
+      });
+    }
   });
 
-  // Assumindo que as letras inferiores começam no mesmo local e movem para cima
   bottomLetters.forEach((letter, index) => {
-    gsap.set(letter, {
-      position: "absolute",
-      top: "62%", // Começa mais abaixo
-      left: `${31.5 + index * 36.5}%`, // Ajuste os valores conforme necessário
-      transform: "translate(-50%, -50%)",
-    });
+    if (isExtraLargeViewport) {
+      // Configuração para viewports extra grandes
+      gsap.set(letter, {
+        position: "absolute",
+        top: "70%",
+        left: `${31 + index * 37.5}%`,
+        transform: "translate(-50%, -50%)",
+      });
+    } else if (isLargeViewport) {
+      // Configuração para viewports grandes
+      gsap.set(letter, {
+        position: "absolute",
+        top: "72%",
+        left: `${31.5 + index * 35.5}%`,
+        transform: "translate(-50%, -50%)",
+      });
+    } else if (isMediumViewport) {
+      // Configuração para viewports médias (notebooks)
+      gsap.set(letter, {
+        position: "absolute",
+        top: "90%",
+        left: `${32 + index * 36.5}%`,
+        transform: "translate(-50%, -50%)",
+      });
+    } else {
+      // Configuração para viewports peque2nas (mobiles)
+      gsap.set(letter, {
+        position: "absolute",
+        top: "80%",
+        left: `${10 + index * 15}%`,
+        transform: "translate(-50%, -50%)",
+      });
+    }
   });
 }
 
@@ -55,6 +111,22 @@ export function animateTransitionBackground() {
   const lettersTop = document.querySelectorAll(".letter");
   const lettersBottom = document.querySelectorAll(".letter-bottom");
 
+  // Verifica o tamanho da viewport
+  const isExtraLargeViewport = window.innerWidth >= 1920;
+  const isLargeViewport = window.innerWidth > 1200;
+  const isMediumViewport = window.innerWidth > 768 && window.innerWidth <= 1200;
+
+  let finalYPosition = "";
+  if (isExtraLargeViewport) {
+    finalYPosition = "-40vh"; // Valor padrão para viewports extra largas
+  } else if (isLargeViewport) {
+    finalYPosition = "-40vh"; // Valor padrão para viewports largas
+  } else if (isMediumViewport) {
+    finalYPosition = "-77vh"; // Valor padrão para viewports medio
+  } else if (!isLargeViewport) {
+    finalYPosition = "-40vh"; // Valor padrão para viewports mobile
+  }
+
   if (transitionBackground) {
     // Cria uma timeline para a animação
     const tl = gsap.timeline({
@@ -70,7 +142,7 @@ export function animateTransitionBackground() {
       .to(
         lettersBottom,
         {
-          y: "-62vh", // Move as letras inferiores para o topo
+          y: finalYPosition, // Move as letras inferiores para o topo com base na viewport
           color: "#ff98a2", // Muda a cor das letras para branco
           duration: 0.5,
         },
